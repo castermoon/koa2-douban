@@ -43,15 +43,32 @@ const getMovieCommentsData = async (id) => {
 	return {
 		commentsCount:commentsData.commentsCount,
 		longCommentsCount:longCommentsData.longCommentsCount,
-		movieScore:parseFloat(movieScore.toFixed(1))
+		movieScore:parseFloat(movieScore.toFixed(1)),
 	}
 }
 
+const getRecentCommentList = async (id) => {
+	let sql = `SELECT c.id,c.content,c.\`date\`,c.score,c.movie_id,c.user_id,users.nickname 
+		FROM comments AS c 
+		INNER JOIN users ON c.user_id=users.id
+		WHERE movie_id=${id} ORDER BY \`date\` DESC LIMIT 5;`
+	return await exec(sql)
+}
+
+const getRecentLongCommentList = async (id) => {
+	let sql = `SELECT lc.id,lc.content,lc.\`date\`,lc.score,lc.movie_id,lc.title,lc.user_id,lc.spoiler,users.nickname 
+		FROM longcomments AS lc 
+		INNER JOIN users ON lc.user_id=users.id
+		WHERE movie_id=${id} ORDER BY \`date\` DESC LIMIT 5;`
+	return await exec(sql)
+}
 
 module.exports = {
 	getMovieData,
 	getMaybeLikeList,
 	getPositionList,
 	getMovieCommentsData,
-	getScorePercent
+	getScorePercent,
+	getRecentCommentList,
+	getRecentLongCommentList
 }

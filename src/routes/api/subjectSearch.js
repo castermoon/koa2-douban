@@ -1,5 +1,5 @@
 const router = require("koa-router")()
-const { getSearchContent } = require('../../controller/home')
+const { getSearchContent } = require('../../controller/subjectSearch')
 const { SuccessModel, ErrorModel } = require("../../model/resModel")
 
 

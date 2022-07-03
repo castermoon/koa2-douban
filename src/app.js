@@ -25,6 +25,7 @@ const personal = require('./routes/api/personal')
 const notice = require('./routes/api/notice')
 const subjectSearch = require('./routes/api/subjectSearch')
 const management = require('./routes/api/management')
+const movieRank = require('./routes/api/movieRank')
 const errorViewRouter = require('./routes/api/page404')
 
 
@@ -86,6 +87,7 @@ app.use(personal.routes(),personal.allowedMethods())
 app.use(notice.routes(),notice.allowedMethods())
 app.use(subjectSearch.routes(),subjectSearch.allowedMethods())
 app.use(management.routes(),management.allowedMethods())
+app.use(movieRank.routes(),movieRank.allowedMethods())
 app.use(errorViewRouter.routes(),errorViewRouter.allowedMethods())
 
 // error-handling

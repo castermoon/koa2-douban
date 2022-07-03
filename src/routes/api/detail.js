@@ -1,6 +1,14 @@
 const router = require("koa-router")()
 const { SuccessModel, ErrorModel } = require("../../model/resModel")
-const { getMovieData,getMaybeLikeList,getPositionList,getMovieCommentsData,getScorePercent } = require('../../controller/detail')
+const {
+	getMovieData,
+	getMaybeLikeList,
+	getPositionList,
+	getMovieCommentsData,
+	getScorePercent,
+	getRecentCommentList,
+	getRecentLongCommentList
+} = require('../../controller/detail')
 const { objMerge,percentCompute } = require('../../utils/dataChange')
 router.prefix('/api/detail')
 
@@ -13,12 +21,17 @@ router.get('/:id',async (ctx,next) => {
 	positionList = objMerge(positionList)
 	let movieCommentsData = await getMovieCommentsData(id)
 	let commentScoreObj = await getScorePercent(id)
+	let recentCommentList = await getRecentCommentList(id)
+	let recentLongCommentList = await getRecentLongCommentList(id)
+
 	commentScoreObj = percentCompute(commentScoreObj)
 	Object.assign(movieData,positionList,movieCommentsData)
 	ctx.body = new SuccessModel({
 		movieData,
 		maybeLikeList,
-		commentScoreObj
+		commentScoreObj,
+		recentCommentList,
+		recentLongCommentList
 	})
 })
 
