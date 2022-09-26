@@ -23,7 +23,7 @@ if(env === 'production'){
 	MYSQL_CONF = {
 		host: 'localhost',
 		user:'root',
-		password:"xinhaolei146",
+		password:"database_password",
 		port:3306,
 		database:'douban'
 	}
